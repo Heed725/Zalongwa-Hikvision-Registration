@@ -19,6 +19,7 @@ A mobile-friendly employee self-registration application for a compatible Hikvis
 - Employees must confirm that the supplied information belongs to them.
 - Device credentials are loaded through Streamlit secrets.
 - Face photographs and fingerprint templates are not permanently stored by the app.
+- Phone photographs are resized and compressed before being sent to the terminal.
 - Registration should be supervised by an authorized Zalongwa administrator.
 
 ## Run locally
