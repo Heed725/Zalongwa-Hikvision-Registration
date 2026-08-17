@@ -95,14 +95,7 @@ if employee is None:
         first_name = st.text_input("First name *", max_chars=40)
         middle_name = st.text_input("Middle name", max_chars=40)
         last_name = st.text_input("Last name *", max_chars=60)
-        c1, c2 = st.columns(2)
-        gender = c1.selectbox("Gender", ["unspecified", "male", "female"])
-        department = c2.selectbox(
-            "Department",
-            ["ICT", "Administration", "Finance", "Operations", "Sales", "Human Resources", "Other"],
-        )
-        if department == "Other":
-            department = st.text_input("Write department", max_chars=80)
+        gender = st.selectbox("Gender", ["unspecified", "male", "female"])
         d1, d2 = st.columns(2)
         valid_from = d1.date_input("Effective from", value=date.today())
         valid_until = d2.date_input("Effective until", value=date(2036, 12, 31))
@@ -119,8 +112,6 @@ if employee is None:
             st.error("Employee ID may contain letters and numbers only.")
         elif valid_until < valid_from:
             st.error("The end date cannot be earlier than the start date.")
-        elif not department.strip():
-            st.error("Enter the department.")
         elif not confirm:
             st.error("Confirm that the information is yours and is correct.")
         elif not safe_equal(pin, setting("ENROLLMENT_PIN")):
@@ -131,7 +122,6 @@ if employee is None:
                 "employee_no": employee_no.strip(),
                 "name": full_name,
                 "gender": gender,
-                "department": department.strip(),
                 "valid_from": valid_from.isoformat(),
                 "valid_until": valid_until.isoformat(),
                 "access_plan": int(access_plan),
@@ -155,7 +145,7 @@ if employee is None:
 st.markdown(
     f"""
     <div class="profile"><strong>{escape(employee['employee_no'])} · {escape(employee['name'])}</strong>
-    <small>{escape(employee['department'])} · Valid until {escape(employee['valid_until'])}</small></div>
+    <small>Valid until {escape(employee['valid_until'])}</small></div>
     """,
     unsafe_allow_html=True,
 )
