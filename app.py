@@ -43,6 +43,24 @@ st.markdown(
       [data-baseweb="select"] svg,[data-baseweb="input"] svg {
         fill:var(--za-ink)!important;color:var(--za-ink)!important;
       }
+      /* Keep every form control clearly visible on mobile browsers. */
+      [data-testid="stTextInput"] [data-baseweb="input"],
+      [data-testid="stNumberInput"] [data-baseweb="input"],
+      [data-testid="stDateInput"] [data-baseweb="input"],
+      [data-testid="stSelectbox"] [data-baseweb="select"]>div {
+        background:#f7f9f6!important;
+        border:1.5px solid #6f7d70!important;
+        border-radius:10px!important;
+        box-shadow:0 1px 2px rgba(36,49,39,.08)!important;
+        min-height:46px!important;
+      }
+      [data-testid="stTextInput"] [data-baseweb="input"]:focus-within,
+      [data-testid="stNumberInput"] [data-baseweb="input"]:focus-within,
+      [data-testid="stDateInput"] [data-baseweb="input"]:focus-within,
+      [data-testid="stSelectbox"] [data-baseweb="select"]>div:focus-within {
+        border-color:var(--za-green)!important;
+        box-shadow:0 0 0 3px rgba(60,103,49,.18)!important;
+      }
       .block-container {max-width:760px;padding:1rem 1rem 5rem;}
       h1 {color:var(--za-green);font-size:1.7rem!important;margin-bottom:.15rem;}
       h2,h3 {color:var(--za-ink);}
