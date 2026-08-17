@@ -21,96 +21,38 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-      :root {--za-green:#3C6731;--za-gold:#D5B641;--za-ink:#243127;color-scheme:light;}
-      html,body,[data-testid="stAppViewContainer"],.stApp {
-        color-scheme:light!important;color:var(--za-ink)!important;
-        background:linear-gradient(180deg,#f3f7f2 0,#fff 55%);
-      }
-      [data-testid="stWidgetLabel"],[data-testid="stWidgetLabel"] p,
-      .stMarkdown p,label,label p,.stCaptionContainer p {
-        color:var(--za-ink)!important;opacity:1!important;
-      }
-      input,textarea,
-      [data-baseweb="input"],[data-baseweb="input"]>div,
-      [data-baseweb="select"]>div,[data-baseweb="base-input"] {
-        color:var(--za-ink)!important;background-color:#fff!important;
-        -webkit-text-fill-color:var(--za-ink)!important;
-      }
-      input::placeholder,textarea::placeholder {
-        color:#667568!important;opacity:1!important;
-        -webkit-text-fill-color:#667568!important;
-      }
-      [data-baseweb="select"] svg,[data-baseweb="input"] svg {
-        fill:var(--za-ink)!important;color:var(--za-ink)!important;
-      }
-      /* Keep every form control clearly visible on mobile browsers. */
-      [data-testid="stTextInput"] [data-baseweb="input"],
-      [data-testid="stNumberInput"] [data-baseweb="input"],
-      [data-testid="stDateInput"] [data-baseweb="input"],
-      [data-testid="stSelectbox"] [data-baseweb="select"]>div {
-        background:#d3d3d3!important;
-        border:1.5px solid #6f7d70!important;
-        border-radius:10px!important;
-        box-shadow:0 1px 2px rgba(36,49,39,.08)!important;
-        min-height:46px!important;
-      }
-      [data-testid="stTextInput"] [data-baseweb="input"]:focus-within,
-      [data-testid="stNumberInput"] [data-baseweb="input"]:focus-within,
-      [data-testid="stDateInput"] [data-baseweb="input"]:focus-within,
-      [data-testid="stSelectbox"] [data-baseweb="select"]>div:focus-within {
-        border-color:var(--za-green)!important;
-        box-shadow:0 0 0 3px rgba(60,103,49,.18)!important;
-      }
-      /* BaseWeb fallback: applies even when Streamlit changes widget test IDs. */
-      div[data-baseweb="input"],
-      div[data-baseweb="select"]>div {
-        background-color:#d3d3d3!important;
-        border:1.5px solid #6f7d70!important;
-        border-radius:10px!important;
-        min-height:46px!important;
-      }
-      div[data-baseweb="input"]>div,
-      div[data-baseweb="input"] input,
-      div[data-baseweb="select"]>div>div {
-        background-color:transparent!important;
-      }
-      div[data-baseweb="input"]:focus-within,
-      div[data-baseweb="select"]>div:focus-within {
-        border-color:var(--za-green)!important;
-        box-shadow:0 0 0 3px rgba(60,103,49,.18)!important;
-      }
-      /* Text, password and number fields use base-input in newer Streamlit builds. */
-      div[data-baseweb="base-input"],
-      div[data-baseweb="select"],
-      div[data-baseweb="select"]>div {
-        background:#d3d3d3!important;
-        border:1.5px solid #6f7d70!important;
-        border-radius:10px!important;
-        min-height:46px!important;
-      }
-      div[data-baseweb="base-input"] input,
-      div[data-baseweb="base-input"]>div,
-      div[data-baseweb="select"]>div>div {
-        background:transparent!important;
-      }
-      div[data-baseweb="base-input"]:focus-within,
-      div[data-baseweb="select"]:focus-within {
-        border-color:var(--za-green)!important;
-        box-shadow:0 0 0 3px rgba(60,103,49,.18)!important;
-      }
+      :root {--za-green:#3C6731;--za-gold:#D5B641;}
       .block-container {max-width:760px;padding:1rem 1rem 5rem;}
-      h1 {color:var(--za-green);font-size:1.7rem!important;margin-bottom:.15rem;}
-      h2,h3 {color:var(--za-ink);}
-      div[data-testid="stForm"] {background:#fff;border:1px solid #d9e4d6;border-top:5px solid var(--za-gold);
-        border-radius:18px;padding:1rem;box-shadow:0 10px 26px rgba(45,82,47,.07);}
-      .profile {background:#eef5eb;border:1px solid #c8dcc3;border-radius:15px;padding:14px 16px;margin:.5rem 0 1rem;}
-      .profile strong {font-size:1.1rem;color:var(--za-green);}
-      .profile small {display:block;color:#58705a;margin-top:4px;}
-      .step {display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;border-radius:50%;
-        background:var(--za-green);color:#fff;font-weight:750;margin-right:7px;border:3px solid #e3d58c;}
-      .stButton>button,.stFormSubmitButton>button {min-height:48px;border-radius:12px;font-weight:700;}
-      @media(max-width:600px){.block-container{padding:.7rem .7rem 4rem}h1{font-size:1.4rem!important}
-        div[data-testid="stForm"]{padding:.75rem;border-radius:14px}}
+      h1 {font-size:1.7rem!important;margin-bottom:.15rem;}
+      div[data-testid="stForm"] {
+        border:1px solid rgba(128,128,128,.35);
+        border-top:5px solid var(--za-gold);
+        border-radius:18px;
+        padding:1rem;
+        box-shadow:0 10px 26px rgba(0,0,0,.08);
+      }
+      .profile {
+        border:1px solid rgba(128,128,128,.35);
+        border-radius:15px;
+        padding:14px 16px;
+        margin:.5rem 0 1rem;
+      }
+      .profile strong {font-size:1.1rem;}
+      .profile small {display:block;opacity:.75;margin-top:4px;}
+      .step {
+        display:inline-flex;align-items:center;justify-content:center;
+        width:29px;height:29px;border-radius:50%;
+        background:var(--za-green);color:#fff;font-weight:750;
+        margin-right:7px;border:3px solid var(--za-gold);
+      }
+      .stButton>button,.stFormSubmitButton>button {
+        min-height:48px;border-radius:12px;font-weight:700;
+      }
+      @media(max-width:600px) {
+        .block-container {padding:.7rem .7rem 4rem;}
+        h1 {font-size:1.4rem!important;}
+        div[data-testid="stForm"] {padding:.75rem;border-radius:14px;}
+      }
     </style>
     """,
     unsafe_allow_html=True,
