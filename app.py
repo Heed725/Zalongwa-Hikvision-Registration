@@ -21,8 +21,28 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-      :root {--za-green:#3C6731;--za-gold:#D5B641;--za-ink:#243127;}
-      .stApp {background:linear-gradient(180deg,#f3f7f2 0,#fff 55%);}
+      :root {--za-green:#3C6731;--za-gold:#D5B641;--za-ink:#243127;color-scheme:light;}
+      html,body,[data-testid="stAppViewContainer"],.stApp {
+        color-scheme:light!important;color:var(--za-ink)!important;
+        background:linear-gradient(180deg,#f3f7f2 0,#fff 55%);
+      }
+      [data-testid="stWidgetLabel"],[data-testid="stWidgetLabel"] p,
+      .stMarkdown p,label,label p,.stCaptionContainer p {
+        color:var(--za-ink)!important;opacity:1!important;
+      }
+      input,textarea,
+      [data-baseweb="input"],[data-baseweb="input"]>div,
+      [data-baseweb="select"]>div,[data-baseweb="base-input"] {
+        color:var(--za-ink)!important;background-color:#fff!important;
+        -webkit-text-fill-color:var(--za-ink)!important;
+      }
+      input::placeholder,textarea::placeholder {
+        color:#667568!important;opacity:1!important;
+        -webkit-text-fill-color:#667568!important;
+      }
+      [data-baseweb="select"] svg,[data-baseweb="input"] svg {
+        fill:var(--za-ink)!important;color:var(--za-ink)!important;
+      }
       .block-container {max-width:760px;padding:1rem 1rem 5rem;}
       h1 {color:var(--za-green);font-size:1.7rem!important;margin-bottom:.15rem;}
       h2,h3 {color:var(--za-ink);}
