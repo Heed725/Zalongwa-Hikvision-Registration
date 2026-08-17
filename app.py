@@ -48,7 +48,7 @@ st.markdown(
       [data-testid="stNumberInput"] [data-baseweb="input"],
       [data-testid="stDateInput"] [data-baseweb="input"],
       [data-testid="stSelectbox"] [data-baseweb="select"]>div {
-        background:#e5e9e6!important;
+        background:#d3d3d3!important;
         border:1.5px solid #6f7d70!important;
         border-radius:10px!important;
         box-shadow:0 1px 2px rgba(36,49,39,.08)!important;
