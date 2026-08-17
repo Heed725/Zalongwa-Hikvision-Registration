@@ -61,6 +61,24 @@ st.markdown(
         border-color:var(--za-green)!important;
         box-shadow:0 0 0 3px rgba(60,103,49,.18)!important;
       }
+      /* BaseWeb fallback: applies even when Streamlit changes widget test IDs. */
+      div[data-baseweb="input"],
+      div[data-baseweb="select"]>div {
+        background-color:#d3d3d3!important;
+        border:1.5px solid #6f7d70!important;
+        border-radius:10px!important;
+        min-height:46px!important;
+      }
+      div[data-baseweb="input"]>div,
+      div[data-baseweb="input"] input,
+      div[data-baseweb="select"]>div>div {
+        background-color:transparent!important;
+      }
+      div[data-baseweb="input"]:focus-within,
+      div[data-baseweb="select"]>div:focus-within {
+        border-color:var(--za-green)!important;
+        box-shadow:0 0 0 3px rgba(60,103,49,.18)!important;
+      }
       .block-container {max-width:760px;padding:1rem 1rem 5rem;}
       h1 {color:var(--za-green);font-size:1.7rem!important;margin-bottom:.15rem;}
       h2,h3 {color:var(--za-ink);}
