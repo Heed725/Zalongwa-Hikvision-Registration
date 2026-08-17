@@ -7,13 +7,10 @@ A mobile-friendly employee self-registration application for a compatible Hikvis
 - Employee ID
 - First, middle and last name
 - Gender
-- Department
 - Effective start and end dates
 - Access-plan template
 - Face photograph
 - Fingerprint captured using the physical terminal
-
-Department is shown in the confirmation screen but is not sent to firmware that does not expose a department-name field in its ISAPI `UserInfo` schema.
 
 ## Security
 
