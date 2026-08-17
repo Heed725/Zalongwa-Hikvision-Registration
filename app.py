@@ -193,24 +193,29 @@ with face_tab:
             st.error(str(exc))
 
 with fingerprint_tab:
-    st.warning("Stand beside the Hikvision terminal. Your phone cannot scan a fingerprint; the terminal sensor performs the capture.")
-    finger_id = st.selectbox("Fingerprint slot", range(1, 11), format_func=lambda number: f"Fingerprint {number}")
-    if st.button("Start fingerprint capture", type="primary", use_container_width=True):
+    st.warning("Ready: stand beside the Hikvision terminal. Only one fingerprint will be captured in slot 1.")
+    capture_status = st.empty()
+    if st.button("Capture one fingerprint", type="primary", use_container_width=True):
         try:
-            with st.spinner("Place your finger on the Hikvision sensor now…"):
-                captured = client.capture_fingerprint(int(finger_id))
+            capture_status.warning("Place one finger on the Hikvision sensor and keep it still…")
+            with st.spinner("Waiting for the terminal sensor…"):
+                captured = client.capture_fingerprint(1)
             if not captured.data:
+                capture_status.empty()
                 st.error(captured.message or "The device returned no fingerprint data. Try again.")
             else:
+                capture_status.success("Fingerprint captured successfully. Saving it to the employee…")
                 if captured.quality is not None:
                     st.metric("Fingerprint quality", f"{captured.quality}%")
-                result = client.apply_fingerprint(employee["employee_no"], captured.data, int(finger_id))
+                result = client.apply_fingerprint(employee["employee_no"], captured.data, 1)
                 if result.ok:
                     st.session_state.fingerprint_done = True
-                    st.success("Fingerprint registered successfully.")
+                    capture_status.success("Fingerprint captured and registered successfully.")
                 else:
+                    capture_status.empty()
                     st.error(f"Fingerprint registration failed: {response_message(result)}")
         except HikvisionError as exc:
+            capture_status.empty()
             st.error(str(exc))
 
 if st.session_state.get("face_done") or st.session_state.get("fingerprint_done"):
