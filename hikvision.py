@@ -143,18 +143,41 @@ class HikvisionClient:
         }
         return self.request("POST", "/ISAPI/Intelligent/FDLib/FaceDataRecord?format=json", files=files)
 
-    def capture_fingerprint(self, finger_id: int) -> FingerprintCapture:
+    def capture_fingerprint(self, finger_id: int = 1) -> FingerprintCapture:
+        # Hikvision expects CaptureFingerPrintCond, not CaptureFingerPrint.
         response = self.request(
             "POST",
             "/ISAPI/AccessControl/CaptureFingerPrint?format=json",
-            json={"CaptureFingerPrint": {"fingerNo": finger_id}},
+            json={"CaptureFingerPrintCond": {"fingerNo": finger_id}},
             timeout=max(self.timeout, 60),
         )
+
+        # Some firmware builds advertise JSON but accept this endpoint only as XML.
+        if not response.ok and "badxml" in response_message(response).replace(" ", "").lower():
+            xml_payload = (
+                '<?xml version="1.0" encoding="UTF-8"?>'
+                '<CaptureFingerPrintCond version="2.0" '
+                'xmlns="http://www.isapi.org/ver20/XMLSchema">'
+                f"<fingerNo>{finger_id}</fingerNo>"
+                "</CaptureFingerPrintCond>"
+            )
+            response = self.request(
+                "POST",
+                "/ISAPI/AccessControl/CaptureFingerPrint",
+                data=xml_payload.encode("utf-8"),
+                headers={"Content-Type": "application/xml"},
+                timeout=max(self.timeout, 60),
+            )
+
         if not response.ok:
             return FingerprintCapture(None, message=response_message(response))
         try:
             body = response.json()
-            captured = body.get("CaptureFingerPrint", body)
+            captured = (
+                body.get("CaptureFingerPrintResult")
+                or body.get("CaptureFingerPrint")
+                or body
+            )
             data = captured.get("fingerData") or captured.get("fingerPrintData")
             quality = captured.get("fingerPrintQuality") or captured.get("quality")
         except ValueError:
